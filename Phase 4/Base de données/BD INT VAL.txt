@@ -1,0 +1,42 @@
+set schema 'Modelisation';
+
+--Insertions valides
+--Insertions dans la table Vehicules
+
+insert into Vehicules (Code,nom_vehicule,marque) values 
+('00001','Duke','Nissan'),
+('00002','La voiture Noire','Bugatti'),
+('00003','Auris','TOYOTA'),
+('00004','Camaro','Chevrolet'),
+('00005','Corola','TOYOTA'),
+('00006','Grand Vitara','Suzuki');
+
+--Insertions dans la table Utilisateurs
+
+insert into utilisateurs (Code,utilisateur_nom,utilisateur_prenom,Telephone,adresse,marque_voiture) values
+('10000','Denise','Ndongo','698030759','Yassa','Toyota'),
+('10001','Sonia','Ndientieng','654678342','Pariso','Hyundai'),
+('10002','Karl','Popper','699665321','Pariso','Bugatti'),
+('10003','David','Ngando','657890234','Nyalla','Chevrolet'),
+('10004','Paossi','Mombouli','687903462','Nyalla','Suzuki'),
+('10005','Darryl','Dikoume','699665321','Cité SAD','Toyota');
+
+
+--Insertions dans la table Position_Vehicule
+
+insert into Position_Vehicule (Vehicule_code,utilisateur_code,abscisse,ordonnée)values
+('00001','10005','080','231'),
+('00002','10004','106','433'),
+('00005','10002','210','202'),
+('00004','10000','305','200'),
+('00006','10001','108','298');
+
+--Insertions dans la table Stationnement
+
+insert into Stationnement (parking_nm,abscisse,ordonnée) values 
+('000000001','100','100'),
+('000000002','200','200'),
+('000000003','300','300'),
+('000000005','400','400'),
+('000000004','500','500'),
+('000000006','600','600');

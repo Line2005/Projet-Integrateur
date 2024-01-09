@@ -1,0 +1,58 @@
+--Définition du schéma City modeling
+
+Create schema if not exists "Modelisation";
+set schema 'Modelisation';
+
+
+create domain Unite_Symbole
+  Text
+  check (length(value) between 1 and 7);
+create domain  Identifiant
+	Text
+	check (value similar to '[0-9]{5}');
+create domain Nom
+	Text
+	check (length(value)between 1 and 40);
+create domain historique
+	Text
+	check (value similar to '[0-9]{4}');
+create domain numero
+	Text
+	check (length (value) between 9 and 9)
+	check (value similar to '[0-9]{9}');
+	
+
+create table Vehicules(
+						Code Identifiant not null,
+						nom_vehicule Nom not null,
+						marque Nom not null,
+						constraint Voit_1 primary key (Code)
+					  );
+					  
+create table Utilisateurs (
+						  Code Identifiant not null,
+						  utilisateur_nom Nom not null,
+						  utilisateur_prenom Nom not null,
+						  Telephone numero not null,
+						  adresse Nom not null,
+						  marque_voiture Nom not null,
+						  constraint Util_1 primary key (Code),
+						  constraint Util_2 unique (utilisateur_nom,utilisateur_prenom,Telephone,adresse) 
+							);	
+							
+create table Position_vehicule (
+						Vehicule_code Identifiant not null,
+						Utilisateur_code Identifiant not null,
+						abscisse numeric not null,
+						ordonnée numeric not null,
+						constraint P_V_1 foreign Key (Vehicule_code) references Vehicules (Code),
+						constraint P_V_2 foreign key (Utilisateur_code)references Utilisateurs (Code)
+						);
+						
+create table Stationnement (
+						parking_nm numero not null,
+						abscisse numeric not null,
+						ordonnée numeric not null,
+						constraint Stat_1 primary key (parking_nm)
+                         );	
+
