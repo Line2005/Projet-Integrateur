@@ -1,0 +1,142 @@
+#include <AFMotor.h>
+#include <NewPing.h>
+
+// Définition des broches pour les moteurs
+#define I2C_ADDRESS 0x0f
+int motorPin1 = 5; // Broche de contrôle du moteur 1
+int motorPin2 = 6; // Broche de contrôle du moteur 2
+int motorPin3 = 10; // Broche de contrôle du moteur 3
+int motorPin4 = 11; // Broche de contrôle du moteur 4
+
+// Constantes pour les distances à parcourir
+const int distance1 = 30; // Distance x en cm
+const int distance2 = 20; // Distance y en cm
+const int distance3 = 15; // Distance z en cm
+const int distance4 = 25; // Distance a en cm
+const int distance5 = 35; // Distance b en cm
+
+// Broches du capteur à ultrasons
+#define TRIGGER_PIN 12
+#define ECHO_PIN 13
+#define MAX_DISTANCE 40
+
+// Variables pour le capteur à ultrasons
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+int servoPin = 4;
+
+Servo servo;
+
+void setup() {
+  // Définition des broches des moteurs en sortie
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+
+  analogWrite(3, 50);
+  analogWrite(9, 50);
+
+}
+
+void loop() {
+  // Avancer sur une distance x
+  avancer(distance1);
+
+  // Tourner à gauche
+  tournerGauche();
+
+  // Avancer sur une distance y
+  avancer(distance2);
+
+  // Tourner à droite
+  tournerDroite();
+
+  // Avancer sur une distance z
+  avancer(distance3);
+
+  // Tourner à gauche
+  tournerGauche();
+
+  // Avancer sur une distance a
+  avancer(distance4);
+
+  // Tourner à gauche
+  tournerGauche();
+
+  // Avancer sur une distance b
+  avancer(distance5);
+
+  // Arrêter la voiture
+  stopper();
+}
+
+// Fonction pour avancer sur une distance donnée
+void avancer(int distance) {
+  // Mesurer la distance parcourue
+  int distanceParcourue = 0;
+
+  // Mesurer la distance actuelle
+  int distanceActuelle = sonar.ping_cm();
+
+  // Tant que la distance parcourue est inférieure à la distance demandée
+  while (distanceParcourue < distance) {
+    // Avancer la voiture
+      digitalWrite(5, LOW);
+      digitalWrite(6, HIGH);
+      digitalWrite(10, HIGH);
+      digitalWrite(11, LOW);
+
+    // Attendre un court instant
+    delay(100);
+
+    // Mettre à jour la distance parcourue
+    int nouvelleDistance = sonar.ping_cm();
+    distanceParcourue += abs(nouvelleDistance - distanceActuelle);
+    distanceActuelle = nouvelleDistance;
+  }
+
+  // Arrêter les moteurs
+  stopper();
+}
+
+// Fonction pour tourner à gauche
+void tournerGauche() {
+  // Activer les moteurs pour tourner à gauche (un moteur en marche avant, l'autre en marche arrière)
+  digitalWrite(5, LOW);
+  digitalWrite(6, HIGH);
+  digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
+
+  // Faire tourner la voiture pendant un certain temps (à ajuster selon les besoins)
+  delay(1000); // 1000 millisecondes
+
+  // Arrêter les moteurs
+  stopper();
+}
+
+// Fonction pour tourner à droite
+void tournerDroite() {
+  // Activer les moteurs pour tourner à droite (un moteur en marche arrière, l'autre en marche avant)
+  digitalWrite(5, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(10, HIGH);
+  digitalWrite(11, LOW);
+
+  // Faire tourner la voiture pendant un certain temps (à ajuster selon les besoins)
+  delay(1000); // 1000 millisecondes
+
+  // Arrêter les moteurs
+  stopper();
+}
+
+// Fonction pour arrêter la voiture
+void stopper() {
+  // Arrêter les moteurs
+  digitalWrite(5, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
+
+  // Attendre un court instant avant la prochaine action
+  delay(200); // 200 millisecondes
+}

@@ -1,0 +1,122 @@
+#include <AFMotor.h>
+
+// Définition des broches pour les moteurs
+#define motor1Pin1 5;
+#define motor1Pin2 6;
+#define motor2Pin1 10;
+#define motor2Pin2 11;
+
+// Constantes pour les distances à parcourir
+const int distance1 = 30; // Distance x en cm
+const int distance2 = 20; // Distance y en cm
+const int distance3 = 15; // Distance z en cm
+const int distance4 = 25; // Distance a en cm
+const int distance5 = 35; // Distance b en cm
+
+
+void setup() {
+  // Définition des broches des moteurs en sortie
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+
+  analogWrite(3, 50);
+  analogWrite(9, 50);
+
+}
+
+void loop() {
+  // Avancer sur une distance x
+  avancer(distance1);
+
+  // Tourner à gauche
+  tournerGauche();
+
+  // Avancer sur une distance y
+  avancer(distance2);
+
+  // Tourner à droite
+  tournerDroite();
+
+  // Avancer sur une distance z
+  avancer(distance3);
+
+  // Tourner à gauche
+  tournerGauche();
+
+  // Avancer sur une distance a
+  avancer(distance4);
+
+  // Tourner à gauche
+  tournerGauche();
+
+  // Avancer sur une distance b
+  avancer(distance5);
+
+  // Arrêter la voiture
+  stopper();
+}
+
+// Fonction pour avancer sur une distance donnée
+void avancer(int distance) {
+  // Calculer le nombre de tours nécessaires en fonction de la distance
+  int nbTours = (distance * 40) / (3 * 2); // 40 = nombre de pas par tour, 3 = diamètre de la roue en cm, 2 = pi
+
+  // Activer les moteurs dans le sens de l'avancement
+      digitalWrite(5, LOW);
+      digitalWrite(6, HIGH);
+      digitalWrite(10, HIGH);
+      digitalWrite(11, LOW);
+
+  // Faire avancer la voiture pendant le nombre de tours calculé
+  for (int i = 0; i < nbTours; i++) {
+    motor1.run(FORWARD);
+    motor2.run(FORWARD);
+  }
+
+  // Arrêter les moteurs
+  stopper();
+}
+
+// Fonction pour tourner à gauche
+void tournerGauche() {
+  // Activer les moteurs pour tourner à gauche (un moteur en marche avant, l'autre en marche arrière)
+  digitalWrite(5, LOW);
+  digitalWrite(6, HIGH);
+  digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
+
+  // Faire tourner la voiture pendant un certain temps (à ajuster selon les besoins)
+  delay(500); // 500 millisecondes
+
+  // Arrêter les moteurs
+  stopper();
+}
+
+// Fonction pour tourner à droite
+void tournerDroite() {
+  // Activer les moteurs pour tourner à droite (un moteur en marche arrière, l'autre en marche avant)
+    digitalWrite(5, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(10, HIGH);
+    digitalWrite(11, LOW);
+
+  // Faire tourner la voiture pendant un certain temps (à ajuster selon les besoins)
+  delay(500); // 500 millisecondes
+
+  // Arrêter les moteurs
+  stopper();
+}
+
+// Fonction pour arrêter la voiture
+void stopper() {
+  // Arrêter les moteurs
+  digitalWrite(5, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
+
+  // Attendre un court instant avant la prochaine action
+  delay(600); // 200 millisecondes
+}
