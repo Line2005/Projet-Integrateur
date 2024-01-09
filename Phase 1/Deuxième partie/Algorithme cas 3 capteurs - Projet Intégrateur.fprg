@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="user"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2023-06-21 09:51:22 pm"/>
+        <attribute name="created" value="dXNlcjtWSUdOT047MjAyMi0wNS0wNjsiMDk6MzI6MzQgIjsyMTA1"/>
+        <attribute name="edited" value="dXNlcjtWSUdOT047MjAyMi0wNy0wMTsiMDQ6MDM6MTMgIjs3OzIyMDY="/>
+        <attribute name="edited" value="bGFuY2k7TEFOQ0lGUkFLRTsyMDIzLTA2LTIxOzA5OjUxOjIyIHBtOzM7MjY5Mg=="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="Gauche, Milieu, Droit, Mg, Md, Continue" type="Integer" array="False" size=""/>
+            <assign variable="Continue" expression="1"/>
+            <while expression="Continue=1">
+                <output expression="&quot;Entrez la valeur du capteur Gauche&quot;" newline="True"/>
+                <input variable="Gauche"/>
+                <output expression="&quot;Entrez la valeur du capteur Milieu&quot;" newline="True"/>
+                <input variable="Milieu"/>
+                <output expression="&quot;Entrez la valeur du capteur Droit&quot;" newline="True"/>
+                <input variable="Droit"/>
+                <if expression="Gauche=0 and Milieu=1 and Droit=0">
+                    <then>
+                        <output expression="&quot;Continuer tout droit&quot;" newline="True"/>
+                        <assign variable="Mg" expression="1"/>
+                        <assign variable="Md" expression="1"/>
+                        <assign variable="Continue" expression="1"/>
+                    </then>
+                    <else>
+                        <if expression="Gauche=1 and Milieu=0 and Droit=0">
+                            <then>
+                                <output expression="&quot;Tourner a Gauche&quot;" newline="True"/>
+                                <assign variable="Mg" expression="0"/>
+                                <assign variable="Md" expression="1"/>
+                                <assign variable="Continue" expression="1"/>
+                            </then>
+                            <else>
+                                <if expression="Gauche=1 and Milieu=1 and Droit=0">
+                                    <then>
+                                        <output expression="&quot;Tourner a Gauche&quot;" newline="True"/>
+                                        <assign variable="Mg" expression="0"/>
+                                        <assign variable="Md" expression="1"/>
+                                        <assign variable="Continue" expression="1"/>
+                                    </then>
+                                    <else>
+                                        <if expression="Gauche=0 and Milieu=0 and Droit=1">
+                                            <then>
+                                                <output expression="&quot;Tourner a Droit&quot;" newline="True"/>
+                                                <assign variable="Mg" expression="1"/>
+                                                <assign variable="Md" expression="0"/>
+                                                <assign variable="Continue" expression="1"/>
+                                            </then>
+                                            <else>
+                                                <if expression="Gauche=0 and Milieu=1 and Droit=1">
+                                                    <then>
+                                                        <output expression="&quot;Tourner a Droit&quot;" newline="True"/>
+                                                        <assign variable="Mg" expression="1"/>
+                                                        <assign variable="Md" expression="0"/>
+                                                        <assign variable="Continue" expression="1"/>
+                                                    </then>
+                                                    <else>
+                                                        <if expression="Gauche=1 and Milieu=1 and Droit=1">
+                                                            <then>
+                                                                <output expression="&quot;Tourne a gauche ou a droit ou encore continue tout droit&quot;" newline="True"/>
+                                                                <assign variable="Continue" expression="1"/>
+                                                            </then>
+                                                            <else>
+                                                                <if expression="Gauche=0 and Milieu=0 and Droit=0">
+                                                                    <then>
+                                                                        <output expression="&quot;Arret complet&quot;" newline="True"/>
+                                                                        <assign variable="Mg" expression="0"/>
+                                                                        <assign variable="Md" expression="0"/>
+                                                                        <assign variable="Continue" expression="1"/>
+                                                                    </then>
+                                                                    <else>
+                                                                        <if expression="Gauche=1 and Milieu=0 and Droit=1">
+                                                                            <then>
+                                                                                <output expression="&quot;Tourner a Gauche ou &#224; droit&quot;" newline="True"/>
+                                                                                <assign variable="Continue" expression="1"/>
+                                                                            </then>
+                                                                            <else/>
+                                                                        </if>
+                                                                    </else>
+                                                                </if>
+                                                            </else>
+                                                        </if>
+                                                    </else>
+                                                </if>
+                                            </else>
+                                        </if>
+                                    </else>
+                                </if>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+            </while>
+        </body>
+    </function>
+</flowgorithm>
